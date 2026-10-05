@@ -1,0 +1,1702 @@
+/* =================================
+   GLOBAL RESET
+================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =================================
+   ROOT VARIABLES
+================================= */
+
+:root {
+
+    --bg: #0B0D10;
+
+    --surface: #11151A;
+    --surface-2: #181D24;
+    --surface-3: #1D232C;
+
+    --primary: #7C5CFC;
+    --primary-light: #9B82FF;
+    --primary-hover: #8D72FF;
+
+    --accent: #4F8CFF;
+
+    --success: #35D07F;
+    --warning: #F5B942;
+    --danger: #FF5C6C;
+
+    --text: #F5F7FA;
+    --text-muted: #8B93A1;
+
+    --border: #252B34;
+    --border-light: #303743;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+
+    --transition: 0.25s ease;
+}
+
+
+/* =================================
+   HTML
+================================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+/* =================================
+   BODY
+================================= */
+
+body {
+
+    min-height: 100vh;
+
+    background: var(--bg);
+
+    color: var(--text);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    line-height: 1.5;
+
+    overflow-x: hidden;
+
+    -webkit-font-smoothing: antialiased;
+}
+
+
+/* =================================
+   BASIC ELEMENTS
+================================= */
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+
+img,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+
+/* =================================
+   APP LAYOUT
+================================= */
+
+.app-layout {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    background: var(--bg);
+}
+
+
+/* =================================
+   SIDEBAR
+================================= */
+
+.sidebar {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    z-index: 100;
+
+    width: 174px;
+    height: 100vh;
+
+    background: #11151A;
+
+    border-right: 1px solid var(--border);
+}
+
+
+/* =================================
+   SIDEBAR BRAND
+================================= */
+
+.sidebar-brand {
+
+    height: 70px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 20px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.sidebar-brand .brand-logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color: var(--text);
+}
+
+
+.sidebar-brand .brand-title {
+
+    color: var(--text);
+
+    font-size: 1rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.04em;
+}
+
+
+.sidebar-brand .logo-mark {
+
+    flex-shrink: 0;
+}
+
+
+/* =================================
+   SIDEBAR NAV
+================================= */
+
+.sidebar-nav {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    padding: 15px 9px;
+}
+
+
+.sidebar-link {
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 0 12px;
+
+    border-radius: 6px;
+
+    color: var(--text-muted);
+
+    font-size: 0.82rem;
+
+    font-weight: 500;
+
+    transition:
+        background-color var(--transition),
+        color var(--transition);
+}
+
+
+.sidebar-link:hover {
+
+    background: var(--surface-2);
+
+    color: var(--text);
+}
+
+
+.sidebar-link.active {
+
+    background: rgba(124, 92, 252, 0.14);
+
+    color: var(--primary-light);
+}
+
+
+.nav-icon {
+
+    width: 18px;
+
+    display: inline-flex;
+
+    justify-content: center;
+
+    font-size: 0.9rem;
+}
+
+
+.sidebar-link.active .nav-icon {
+
+    color: var(--primary-light);
+}
+
+
+/* =================================
+   MAIN WRAPPER
+================================= */
+
+.main-wrapper {
+
+    width: calc(100% - 174px);
+
+    min-height: 100vh;
+
+    margin-left: 174px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    position: relative;
+}
+
+
+/* =================================
+   TOP HEADER
+================================= */
+
+.top-header {
+
+    position: fixed;
+
+    top: 0;
+    right: 0;
+
+    width: calc(100% - 174px);
+
+    height: 70px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 28px;
+
+    background: #11151A;
+
+    border-bottom: 1px solid var(--border);
+
+    z-index: 99;
+}
+
+
+.page-label {
+
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: var(--text-muted);
+
+    font-size: 0.7rem;
+}
+
+
+.top-header h1 {
+
+    color: var(--text);
+
+    font-size: 1.05rem;
+
+    font-weight: 600;
+}
+
+
+/* =================================
+   HEADER RIGHT
+================================= */
+
+.header-right {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+}
+
+
+/* =================================
+   NOTIFICATION
+================================= */
+
+.notification {
+
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+
+    place-items: center;
+
+    padding: 0;
+
+    background: transparent;
+
+    color: var(--text-muted);
+
+    font-size: 0.9rem;
+
+    transition: color var(--transition);
+}
+
+
+.notification:hover {
+
+    color: var(--text);
+}
+
+
+/* =================================
+   USER PROFILE
+================================= */
+
+.user-profile {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.user-avatar {
+
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: var(--primary);
+
+    color: #fff;
+
+    font-size: 0.72rem;
+
+    font-weight: 700;
+}
+
+
+.user-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1px;
+}
+
+
+.user-info strong {
+
+    color: var(--text);
+
+    font-size: 0.78rem;
+}
+
+
+.user-info span {
+
+    color: var(--text-muted);
+
+    font-size: 0.68rem;
+}
+
+
+.profile-arrow {
+
+    margin-left: 4px;
+
+    color: var(--text-muted);
+
+    font-size: 0.65rem;
+}
+
+
+/* =================================
+   CONTENT
+================================= */
+
+.content-area {
+
+    flex: 1;
+
+    padding: 26px;
+
+    margin-top: 70px;
+
+    overflow-x: hidden;
+}
+
+
+/* =================================
+   CALENDAR INTRO
+================================= */
+
+.calendar-intro {
+
+    min-height: 106px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    padding: 22px 26px;
+
+    margin-bottom: 20px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-md);
+}
+
+
+.section-label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin-bottom: 6px;
+
+    color: var(--text-muted);
+
+    font-size: 0.65rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.04em;
+}
+
+
+.calendar-intro h2 {
+
+    color: var(--text);
+
+    font-size: 1.3rem;
+
+    font-weight: 650;
+}
+
+
+.calendar-intro p {
+
+    margin-top: 5px;
+
+    color: var(--text-muted);
+
+    font-size: 0.78rem;
+}
+
+
+/* =================================
+   CALENDAR CONTROLS
+================================= */
+
+.calendar-controls {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+.calendar-nav-btn {
+
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+
+    place-items: center;
+
+    background: var(--surface-2);
+
+    color: var(--text-muted);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-sm);
+
+    font-size: 0.7rem;
+
+    transition:
+        background-color var(--transition),
+        color var(--transition),
+        border-color var(--transition);
+}
+
+
+.calendar-nav-btn:hover {
+
+    background: var(--surface-3);
+
+    color: var(--text);
+
+    border-color: var(--border-light);
+}
+
+
+.month-display {
+
+    min-width: 125px;
+
+    height: 34px;
+
+    padding: 0 14px;
+
+    background: var(--surface-2);
+
+    color: var(--text);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-sm);
+
+    font-size: 0.72rem;
+
+    font-weight: 500;
+}
+
+
+/* =================================
+   CALENDAR CARD
+================================= */
+
+.calendar-card {
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-md);
+
+    overflow: hidden;
+}
+
+
+/* =================================
+   WEEKDAYS
+================================= */
+
+.calendar-weekdays {
+
+    display: grid;
+
+    grid-template-columns: repeat(7, 1fr);
+
+    background: var(--surface-2);
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.calendar-weekdays span {
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: var(--text);
+
+    font-size: 0.7rem;
+
+    font-weight: 600;
+}
+
+
+/* =================================
+   CALENDAR GRID
+================================= */
+
+.calendar-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(7, 1fr);
+}
+
+
+/* =================================
+   CALENDAR DAY
+================================= */
+
+.calendar-day {
+
+    min-height: 105px;
+
+    padding: 9px;
+
+    border-right: 1px solid var(--border);
+
+    border-bottom: 1px solid var(--border);
+
+    background: var(--surface);
+
+    transition: background-color var(--transition);
+}
+
+
+.calendar-day:hover {
+
+    background: var(--surface-2);
+}
+
+
+.calendar-day:nth-child(7n) {
+
+    border-right: none;
+}
+
+
+/* =================================
+   DAY NUMBER
+================================= */
+
+.day-number {
+
+    width: 26px;
+    height: 26px;
+
+    display: grid;
+
+    place-items: center;
+
+    margin-left: auto;
+
+    color: var(--text);
+
+    font-size: 0.7rem;
+
+    border-radius: 50%;
+}
+
+
+/* =================================
+   OTHER MONTH
+================================= */
+
+.calendar-day.other-month {
+
+    background: #0D1014;
+}
+
+
+.calendar-day.other-month .day-number {
+
+    color: #3F4652;
+}
+
+
+/* =================================
+   TODAY
+================================= */
+
+.calendar-day.today {
+
+    background: rgba(124, 92, 252, 0.08);
+}
+
+
+.calendar-day.today .day-number {
+
+    background: var(--primary);
+
+    color: #ffffff;
+}
+
+
+/* =================================
+   EVENTS
+================================= */
+
+.calendar-event {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin-top: 8px;
+
+    padding: 5px 6px;
+
+    background: var(--surface-2);
+
+    border-radius: 5px;
+
+    color: var(--text-muted);
+
+    font-size: 0.6rem;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.event-dot {
+
+    width: 6px;
+    height: 6px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: var(--primary);
+}
+
+
+.event-dot.purple,
+.event-color.purple {
+
+    background: var(--primary);
+}
+
+
+.event-dot.green,
+.event-color.green {
+
+    background: var(--success);
+}
+
+
+.event-dot.yellow,
+.event-color.yellow {
+
+    background: var(--warning);
+}
+
+
+.event-dot.red,
+.event-color.red {
+
+    background: var(--danger);
+}
+
+
+/* =================================
+   BOTTOM SECTION
+================================= */
+
+.calendar-bottom {
+
+    display: grid;
+
+    grid-template-columns: 1.5fr 0.85fr;
+
+    gap: 16px;
+
+    margin-top: 16px;
+}
+
+
+/* =================================
+   BOTTOM CARD
+================================= */
+
+.bottom-card {
+
+    min-height: 220px;
+
+    padding: 18px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-md);
+}
+
+
+.bottom-card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 16px;
+}
+
+
+.bottom-card-header h3 {
+
+    color: var(--text);
+
+    font-size: 0.9rem;
+
+    font-weight: 600;
+}
+
+
+.view-all-btn {
+
+    padding: 0;
+
+    background: transparent;
+
+    color: var(--primary-light);
+
+    font-size: 0.7rem;
+}
+
+
+.view-all-btn:hover {
+
+    color: var(--primary-hover);
+}
+
+
+/* =================================
+   UPCOMING EVENTS
+================================= */
+
+.events-list {
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.upcoming-event {
+
+    min-height: 43px;
+
+    display: grid;
+
+    grid-template-columns: 75px 8px 1fr;
+
+    align-items: center;
+
+    gap: 9px;
+}
+
+
+.event-time {
+
+    color: var(--text-muted);
+
+    font-size: 0.65rem;
+}
+
+
+.event-color {
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+}
+
+
+.event-details {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1px;
+}
+
+
+.event-details strong {
+
+    color: var(--text);
+
+    font-size: 0.72rem;
+
+    font-weight: 500;
+}
+
+
+.event-details small {
+
+    color: var(--text-muted);
+
+    font-size: 0.61rem;
+}
+
+
+/* =================================
+   QUICK ACTIONS
+================================= */
+
+.quick-actions {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+.quick-action {
+
+    min-height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 0 12px;
+
+    background: var(--surface-2);
+
+    color: var(--text);
+
+    border: 1px solid transparent;
+
+    border-radius: var(--radius-sm);
+
+    font-size: 0.7rem;
+
+    text-align: left;
+
+    transition:
+        background-color var(--transition),
+        border-color var(--transition);
+}
+
+
+.quick-action:hover {
+
+    background: var(--surface-3);
+
+    border-color: var(--border-light);
+}
+
+
+.quick-action i {
+
+    width: 16px;
+
+    color: var(--text-muted);
+
+    text-align: center;
+}
+
+
+.today-btn {
+
+    background: transparent;
+
+    border-color: var(--border);
+}
+
+
+.today-btn:hover {
+
+    background: var(--surface-2);
+
+    border-color: var(--border-light);
+}
+
+/* =================================
+   TASK MODAL
+================================= */
+
+.modal-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 500;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.65);
+
+    backdrop-filter: blur(4px);
+}
+
+
+/* Show modal */
+
+.modal-overlay.active {
+
+    display: flex;
+}
+
+
+/* =================================
+   MODAL
+================================= */
+
+.task-modal {
+
+    width: 100%;
+
+    max-width: 480px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border-light);
+
+    border-radius: var(--radius-lg);
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5);
+
+    overflow: hidden;
+}
+
+
+/* =================================
+   MODAL HEADER
+================================= */
+
+.modal-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    padding: 22px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.modal-label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 5px;
+
+    color: var(--primary-light);
+
+    font-size: 0.65rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.04em;
+}
+
+
+.modal-header h3 {
+
+    color: var(--text);
+
+    font-size: 1.05rem;
+
+    font-weight: 600;
+}
+
+
+/* =================================
+   CLOSE BUTTON
+================================= */
+
+.modal-close {
+
+    width: 30px;
+
+    height: 30px;
+
+    display: grid;
+
+    place-items: center;
+
+    background: transparent;
+
+    color: var(--text-muted);
+
+    border-radius: 6px;
+
+    font-size: 0.9rem;
+
+    transition:
+        background-color var(--transition),
+        color var(--transition);
+}
+
+
+.modal-close:hover {
+
+    background: var(--surface-2);
+
+    color: var(--text);
+}
+
+
+/* =================================
+   FORM
+================================= */
+
+#taskForm {
+
+    padding: 22px;
+}
+
+
+.form-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+    margin-bottom: 16px;
+}
+
+
+.form-group label {
+
+    color: var(--text);
+
+    font-size: 0.72rem;
+
+    font-weight: 500;
+}
+
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+
+    width: 100%;
+
+    padding: 10px 12px;
+
+    background: var(--surface-2);
+
+    color: var(--text);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-sm);
+
+    outline: none;
+
+    font-size: 0.75rem;
+
+    transition:
+        border-color var(--transition),
+        background-color var(--transition);
+}
+
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+
+    background: var(--surface-3);
+
+    border-color: var(--primary);
+}
+
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+
+    color: #5f6773;
+}
+
+
+.form-group textarea {
+
+    resize: vertical;
+
+    min-height: 80px;
+}
+
+
+/* =================================
+   FORM ROW
+================================= */
+
+.form-row {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 14px;
+}
+
+
+/* =================================
+   MODAL ACTIONS
+================================= */
+
+.modal-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 5px;
+
+    padding-top: 16px;
+
+    border-top: 1px solid var(--border);
+}
+
+
+.modal-cancel,
+.modal-save {
+
+    min-height: 38px;
+
+    padding: 0 15px;
+
+    border-radius: var(--radius-sm);
+
+    font-size: 0.72rem;
+
+    font-weight: 600;
+}
+
+
+.modal-cancel {
+
+    background: var(--surface-2);
+
+    color: var(--text-muted);
+
+    border: 1px solid var(--border);
+}
+
+
+.modal-cancel:hover {
+
+    background: var(--surface-3);
+
+    color: var(--text);
+}
+
+
+.modal-save {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    background: var(--primary);
+
+    color: #ffffff;
+
+    border: 1px solid var(--primary);
+}
+
+
+.modal-save:hover {
+
+    background: var(--primary-hover);
+
+    border-color: var(--primary-hover);
+}
+
+
+/* =================================
+   MOBILE
+================================= */
+
+@media (max-width: 500px) {
+
+    .form-row {
+
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .task-modal {
+
+        max-width: 100%;
+    }
+
+}
+
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 900px) {
+
+    .calendar-bottom {
+        grid-template-columns: 1fr;
+    }
+
+    .calendar-day {
+        min-height: 90px;
+    }
+
+}
+
+
+/* =================================
+   TABLET / MOBILE
+================================= */
+
+@media (max-width: 700px) {
+
+    /* ==============================
+       SIDEBAR
+    ============================== */
+
+    .sidebar {
+        width: 160px;
+    }
+
+
+    /* ==============================
+       SIDEBAR BRAND
+    ============================== */
+
+    .sidebar-brand {
+        height: 62px;
+        justify-content: flex-start;
+        padding: 0 14px;
+    }
+
+    .sidebar-brand .brand-title {
+        display: inline;
+    }
+
+
+    /* ==============================
+       SIDEBAR NAV
+    ============================== */
+
+    .sidebar-nav {
+        padding: 15px 9px;
+        gap: 5px;
+    }
+
+    .sidebar-link {
+        width: 100%;
+        height: 40px;
+        justify-content: flex-start;
+        padding: 0 10px;
+        gap: 10px;
+        font-size: 0.72rem;
+    }
+
+    /* Keep navigation text visible */
+    .sidebar-link span {
+        display: inline;
+    }
+
+    .nav-icon {
+        width: 18px;
+        flex-shrink: 0;
+        font-size: 0.82rem;
+    }
+
+
+    /* ==============================
+       MAIN WRAPPER
+    ============================== */
+
+    .main-wrapper {
+        width: calc(100% - 160px);
+        margin-left: 160px;
+    }
+
+
+    /* ==============================
+       TOP HEADER
+    ============================== */
+
+    .top-header {
+        width: calc(100% - 160px);
+        padding: 0 14px;
+    }
+
+
+    /* ==============================
+       USER PROFILE
+    ============================== */
+
+    .user-info,
+    .profile-arrow {
+        display: none;
+    }
+
+
+    /* ==============================
+       CONTENT
+    ============================== */
+
+    .content-area {
+        padding: 18px;
+    }
+
+
+    /* ==============================
+       CALENDAR INTRO
+    ============================== */
+
+    .calendar-intro {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+
+    /* ==============================
+       CALENDAR CONTROLS
+    ============================== */
+
+    .calendar-controls {
+        width: 100%;
+    }
+
+    .month-display {
+        flex: 1;
+    }
+
+}
+
+
+/* =================================
+   SMALL MOBILE
+================================= */
+
+@media (max-width: 500px) {
+
+    /* ==============================
+       SIDEBAR
+    ============================== */
+
+    .sidebar {
+        width: 145px;
+    }
+
+
+    /* ==============================
+       SIDEBAR BRAND
+    ============================== */
+
+    .sidebar-brand {
+        height: 58px;
+        padding: 0 10px;
+    }
+
+    .sidebar-brand .brand-title {
+        display: inline;
+        font-size: 0.78rem;
+    }
+
+
+    /* ==============================
+       SIDEBAR NAV
+    ============================== */
+
+    .sidebar-nav {
+        padding: 12px 7px;
+        gap: 4px;
+    }
+
+    .sidebar-link {
+        height: 38px;
+        padding: 0 8px;
+        gap: 8px;
+        font-size: 0.66rem;
+    }
+
+    .sidebar-link span {
+        display: inline;
+    }
+
+    .nav-icon {
+        width: 17px;
+        font-size: 0.76rem;
+    }
+
+
+    /* ==============================
+       MAIN WRAPPER
+    ============================== */
+
+    .main-wrapper {
+        width: calc(100% - 145px);
+        margin-left: 145px;
+    }
+
+
+    /* ==============================
+       TOP HEADER
+    ============================== */
+
+    .top-header {
+        width: calc(100% - 145px);
+        padding: 0 10px;
+    }
+
+
+    /* ==============================
+       CONTENT
+    ============================== */
+
+    .content-area {
+        padding: 12px;
+    }
+
+
+    /* ==============================
+       CALENDAR
+    ============================== */
+
+    .calendar-day {
+        min-height: 65px;
+        padding: 5px;
+    }
+
+    .calendar-weekdays span {
+        font-size: 0.58rem;
+    }
+
+
+    /* Hide event details on very small screens */
+    .calendar-event {
+        display: none;
+    }
+
+
+    /* ==============================
+       DAY NUMBER
+    ============================== */
+
+    .day-number {
+        width: 22px;
+        height: 22px;
+        font-size: 0.62rem;
+    }
+
+
+    /* ==============================
+       CALENDAR INTRO
+    ============================== */
+
+    .calendar-intro {
+        padding: 18px;
+    }
+
+
+    /* ==============================
+       CALENDAR CONTROLS
+    ============================== */
+
+    .calendar-controls {
+        gap: 6px;
+    }
+
+    .calendar-nav-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .month-display {
+        min-width: 0;
+        font-size: 0.68rem;
+    }
+
+
+    /* ==============================
+       MODAL
+    ============================== */
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .task-modal {
+        max-width: 100%;
+    }
+
+}
