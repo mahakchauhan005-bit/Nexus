@@ -778,9 +778,7 @@ function renderNotificationBadge() {
     const notifications = saved ? JSON.parse(saved) : [];
 
     // Count active/unread notifications
-    const activeCount = notifications.filter(
-        (n) => n.completed !== true && n.read !== true
-    ).length;
+    const activeCount = notifications.length;
 
     let badge = notificationButton.querySelector(".notification-badge");
 
