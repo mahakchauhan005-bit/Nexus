@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NEXORA | Calendar</title>
+
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/calender.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <!-- =================================
+             SIDEBAR
+        ================================== -->
+
+        <aside class="sidebar">
+
+            <div class="sidebar-brand">
+
+                <a href="index.html" class="brand-logo">
+
+                    <svg
+                        class="logo-mark"
+                        width="28"
+                        height="28"
+                        viewBox="0 0 32 32"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+
+                        <defs>
+
+                            <linearGradient
+                                id="nexoraGrad"
+                                x1="0%"
+                                y1="0%"
+                                x2="100%"
+                                y2="100%"
+                            >
+
+                                <stop
+                                    offset="0%"
+                                    stop-color="#9B82FF"
+                                />
+
+                                <stop
+                                    offset="100%"
+                                    stop-color="#7C5CFC"
+                                />
+
+                            </linearGradient>
+
+                        </defs>
+
+                        <rect
+                            x="4"
+                            y="5"
+                            width="6"
+                            height="22"
+                            rx="3"
+                            fill="url(#nexoraGrad)"
+                        />
+
+                        <path
+                            d="M10 8L22 24"
+                            stroke="url(#nexoraGrad)"
+                            stroke-width="6"
+                            stroke-linecap="round"
+                        />
+
+                        <rect
+                            x="22"
+                            y="5"
+                            width="6"
+                            height="22"
+                            rx="3"
+                            fill="url(#nexoraGrad)"
+                        />
+
+                    </svg>
+
+                    <span class="brand-title">
+                        NEXORA
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- Navigation -->
+
+            <nav class="sidebar-nav">
+
+                <a
+                    href="dashboard.html"
+                    class="sidebar-link"
+                >
+                    <i class="fa-solid fa-table-cells-large nav-icon"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a
+                    href="projects.html"
+                    class="sidebar-link"
+                >
+                    <i class="fa-regular fa-folder nav-icon"></i>
+                    <span>Projects</span>
+                </a>
+
+                <a
+                    href="tasks.html"
+                    class="sidebar-link"
+                >
+                    <i class="fa-solid fa-list-check nav-icon"></i>
+                    <span>Tasks</span>
+                </a>
+
+                <a
+                    href="calendar.html"
+                    class="sidebar-link active"
+                >
+                    <i class="fa-regular fa-calendar nav-icon"></i>
+                    <span>Calendar</span>
+                </a>
+
+                <a
+                    href="analytics.html"
+                    class="sidebar-link"
+                >
+                    <i class="fa-solid fa-chart-column nav-icon"></i>
+                    <span>Analytics</span>
+                </a>
+
+                <a
+                    href="settings.html"
+                    class="sidebar-link"
+                >
+                    <i class="fa-solid fa-gear nav-icon"></i>
+                    <span>Settings</span>
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- =================================
+             MAIN WRAPPER
+        ================================== -->
+
+        <div class="main-wrapper">
+
+
+            <!-- =================================
+                 HEADER
+            ================================== -->
+
+            <header class="top-header">
+
+                <div>
+
+                    <span class="page-label">
+                        Workspace
+                    </span>
+
+                    <h1>
+                        Calendar
+                    </h1>
+
+                </div>
+
+
+                <div class="header-right">
+
+                    <button
+                        class="notification"
+                        type="button"
+                    >
+
+                        <i class="fa-solid fa-bell"></i>
+
+                    </button>
+
+
+                    <div class="user-profile">
+
+                        <div class="user-avatar">
+                            AR
+                        </div>
+
+
+                        <div class="user-info">
+
+                            <strong>
+                                Alex Reed
+                            </strong>
+
+                            <span>
+                                Workspace Admin
+                            </span>
+
+                        </div>
+
+
+                        <i
+                            class="fa-solid fa-chevron-down profile-arrow"
+                        ></i>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- =================================
+                 CONTENT
+            ================================== -->
+
+            <main class="content-area">
+
+
+                <!-- =================================
+                     CALENDAR INTRO
+                ================================== -->
+
+                <section class="calendar-intro">
+
+                    <div>
+
+                        <span class="section-label">
+
+                            <i class="fa-solid fa-calendar-days"></i>
+
+                            Calendar
+
+                        </span>
+
+
+                        <h2>
+                            Plan your week.
+                        </h2>
+
+
+                        <p>
+                            Keep track of your tasks, meetings and important dates.
+                        </p>
+
+                    </div>
+
+
+                    <!-- MONTH CONTROLS -->
+
+                    <div class="calendar-controls">
+
+                        <button
+                            class="calendar-nav-btn"
+                            id="prevMonth"
+                            type="button"
+                            aria-label="Previous month"
+                        >
+
+                            <i class="fa-solid fa-chevron-left"></i>
+
+                        </button>
+
+
+                        <button
+                            class="month-display"
+                            id="monthDisplay"
+                            type="button"
+                        >
+                            October 2026
+                        </button>
+
+
+                        <button
+                            class="calendar-nav-btn"
+                            id="nextMonth"
+                            type="button"
+                            aria-label="Next month"
+                        >
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     CALENDAR
+                ================================== -->
+
+                <section class="calendar-card">
+
+                    <!-- WEEKDAYS -->
+
+                    <div class="calendar-weekdays">
+
+                        <span>Sun</span>
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+
+                    </div>
+
+
+                    <!-- DAYS -->
+
+                    <div
+                        class="calendar-grid"
+                        id="calendarGrid"
+                    ></div>
+
+                </section>
+
+
+                <!-- =================================
+                     BOTTOM SECTION
+                ================================== -->
+
+                <section class="calendar-bottom">
+
+
+                    <!-- UPCOMING EVENTS -->
+
+                    <div class="bottom-card">
+
+                        <div class="bottom-card-header">
+
+                            <h3>
+                                Upcoming Events
+                            </h3>
+
+                            <button
+                                class="view-all-btn"
+                                type="button"
+                            >
+                                View all
+                            </button>
+
+                        </div>
+
+
+                        <!--
+                            CHANGED:
+                            Hardcoded events removed.
+                            JavaScript will create them here.
+                        -->
+
+                        <div
+                            class="events-list"
+                            id="upcomingEventsList"
+                        ></div>
+
+                    </div>
+
+
+                    <!-- QUICK ACTIONS -->
+
+                    <div class="bottom-card quick-actions-card">
+
+                        <div class="bottom-card-header">
+
+                            <h3>
+                                Quick Actions
+                            </h3>
+
+                        </div>
+
+
+                        <div class="quick-actions">
+
+
+                            <button
+                                class="quick-action"
+                                type="button"
+                                id="addEventBtn"
+                            >
+
+                                <i class="fa-solid fa-plus"></i>
+
+                                <span>
+                                    Add Event
+                                </span>
+
+                            </button>
+
+
+                            <button
+                                class="quick-action"
+                                type="button"
+                                id="addTaskBtn"
+                            >
+
+                                <i class="fa-solid fa-plus"></i>
+
+                                <span>
+                                    Add Task
+                                </span>
+
+                            </button>
+
+
+                            <button
+                                class="quick-action today-btn"
+                                type="button"
+                                id="todayBtn"
+                            >
+
+                                <i class="fa-regular fa-calendar"></i>
+
+                                <span>
+                                    Today
+                                </span>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     ADD / EDIT TASK MODAL
+                ================================== -->
+
+                <div class="modal-overlay" id="taskModal">
+
+                    <div class="task-modal">
+
+                        <div class="modal-header">
+
+                            <div>
+
+                                <span class="modal-label">
+
+                                    <i class="fa-solid fa-list-check"></i>
+
+                                    New Task
+
+                                </span>
+
+                                <h3>
+                                    Create a task
+                                </h3>
+
+                            </div>
+
+                            <button
+                                class="modal-close"
+                                id="closeTaskModal"
+                                type="button"
+                            >
+
+                                <i class="fa-solid fa-xmark"></i>
+
+                            </button>
+
+                        </div>
+
+
+                        <form id="taskForm">
+
+                            <div class="form-group">
+
+                                <label for="taskTitle">
+                                    Task name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="taskTitle"
+                                    placeholder="Enter task name"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-row">
+
+                                <div class="form-group">
+
+                                    <label for="taskDate">
+                                        Date
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        id="taskDate"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="taskPriority">
+                                        Priority
+                                    </label>
+
+                                    <select id="taskPriority">
+
+                                        <option value="low">
+                                            Low
+                                        </option>
+
+                                        <option value="medium" selected>
+                                            Medium
+                                        </option>
+
+                                        <option value="high">
+                                            High
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="taskDescription">
+                                    Description
+                                </label>
+
+                                <textarea
+                                    id="taskDescription"
+                                    rows="3"
+                                    placeholder="Add a short description"
+                                ></textarea>
+
+                            </div>
+
+
+                            <div class="modal-actions">
+
+                                <!-- NEW -->
+                                <button
+                                    type="button"
+                                    class="modal-cancel"
+                                    id="deleteTaskBtn"
+                                    style="display: none; color: #FF5C6C;"
+                                >
+                                    <i class="fa-solid fa-trash"></i>
+                                    Delete
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="modal-cancel"
+                                    id="cancelTask"
+                                >
+                                    Cancel
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    class="modal-save"
+                                    id="saveTaskBtn"
+                                >
+
+                                    <i class="fa-solid fa-plus"></i>
+
+                                    Add Task
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     ADD / EDIT EVENT MODAL
+                ================================== -->
+
+                <div class="modal-overlay" id="eventModal">
+
+                    <div class="task-modal">
+
+                        <div class="modal-header">
+
+                            <div>
+
+                                <span class="modal-label">
+
+                                    <i class="fa-solid fa-calendar-plus"></i>
+
+                                    New Event
+
+                                </span>
+
+                                <h3>
+                                    Create an event
+                                </h3>
+
+                            </div>
+
+                            <button
+                                class="modal-close"
+                                id="closeEventModal"
+                                type="button"
+                            >
+
+                                <i class="fa-solid fa-xmark"></i>
+
+                            </button>
+
+                        </div>
+
+
+                        <form id="eventForm">
+
+                            <!-- Event Name -->
+
+                            <div class="form-group">
+
+                                <label for="eventTitle">
+                                    Event name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="eventTitle"
+                                    placeholder="Enter event name"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <!-- Date + Time -->
+
+                            <div class="form-row">
+
+                                <div class="form-group">
+
+                                    <label for="eventDate">
+                                        Date
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        id="eventDate"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="eventTime">
+                                        Time
+                                    </label>
+
+                                    <input
+                                        type="time"
+                                        id="eventTime"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Location -->
+
+                            <div class="form-group">
+
+                                <label for="eventLocation">
+                                    Location
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="eventLocation"
+                                    placeholder="Meeting room, Zoom, etc."
+                                >
+
+                            </div>
+
+
+                            <!-- Event Color -->
+
+                            <div class="form-group">
+
+                                <label for="eventColor">
+                                    Event color
+                                </label>
+
+                                <select id="eventColor">
+
+                                    <option value="purple">
+                                        Purple
+                                    </option>
+
+                                    <option value="green">
+                                        Green
+                                    </option>
+
+                                    <option value="yellow">
+                                        Yellow
+                                    </option>
+
+                                    <option value="red">
+                                        Red
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- Description -->
+
+                            <div class="form-group">
+
+                                <label for="eventDescription">
+                                    Description
+                                </label>
+
+                                <textarea
+                                    id="eventDescription"
+                                    rows="3"
+                                    placeholder="Add a short description"
+                                ></textarea>
+
+                            </div>
+
+
+                            <!-- Buttons -->
+
+                            <div class="modal-actions">
+
+                                <!-- NEW -->
+                                <button
+                                    type="button"
+                                    class="modal-cancel"
+                                    id="deleteEventBtn"
+                                    style="display: none; color: #FF5C6C;"
+                                >
+                                    <i class="fa-solid fa-trash"></i>
+                                    Delete
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="modal-cancel"
+                                    id="cancelEvent"
+                                >
+                                    Cancel
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    class="modal-save"
+                                    id="saveEventBtn"
+                                >
+
+                                    <i class="fa-solid fa-plus"></i>
+
+                                    Add Event
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+    <!-- JavaScript -->
+
+    <script src="../JS/app.js"></script>
+
+    <script src="../JS/calender.js"></script>
+
+    <script src="../JS/login.js"></script>
+
+</body>
+
+</html>

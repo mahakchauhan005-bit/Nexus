@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXORA | Sign Up</title>
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+    <div class="login-layout">
+
+        <!-- Left Side Description -->
+        <div class="login-description">
+            <div class="sidebar-brand">
+                <a href="index.html" class="brand-logo">
+                    <svg class="logo-mark" width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="nexoraGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#9B82FF" />
+                                <stop offset="100%" stop-color="#7C5CFC" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="4" y="5" width="6" height="22" rx="3" fill="url(#nexoraGrad)" />
+                        <path d="M10 8L22 24" stroke="url(#nexoraGrad)" stroke-width="6" stroke-linecap="round" />
+                        <rect x="22" y="5" width="6" height="22" rx="3" fill="url(#nexoraGrad)" />
+                    </svg>
+                    <span class="brand-title">NEXORA</span>
+                </a>
+            </div>
+
+            <div class="subtitle">
+                <h2>Start Your Journey.</h2>
+                <h2>Build Better Habits.</h2>
+                <h3>Join thousands of professionals streamlining their daily workflow with NEXORA.</h3>
+            </div>
+
+            <div class="login-features">
+                <div class="login-descr">
+                    <span><i class="fa-regular fa-circle-check"></i></span>
+                    <h3>All-in-one productivity suite</h3>
+                </div>
+                
+                <div class="login-descr">
+                    <span><i class="fa-regular fa-calendar"></i></span>
+                    <h3>Sync tasks and calendar events</h3>
+                </div>
+
+                <div class="login-descr">
+                    <span><i class="fa-regular fa-bell"></i></span>
+                    <h3>Smart priority alerts</h3>
+                </div>
+
+                <div class="login-descr">
+                    <span><i class="fa-solid fa-leaf"></i></span>
+                    <h3>Distraction-free workspace</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side Sign Up Form Card -->
+        <div class="login-form">
+            <div class="form-brand-header">
+                <a href="../index.html" class="brand-logo">
+                    <svg class="logo-mark" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="5" width="6" height="22" rx="3" fill="url(#nexoraGrad)" />
+                        <path d="M10 8L22 24" stroke="url(#nexoraGrad)" stroke-width="6" stroke-linecap="round" />
+                        <rect x="22" y="5" width="6" height="22" rx="3" fill="url(#nexoraGrad)" />
+                    </svg>
+                    <span class="brand-title">NEXORA</span>
+                </a>
+            </div>
+
+            <div class="subheading">
+                <h2>Create an Account</h2>
+                <p>Get started with your free NEXORA workspace</p>
+            </div>
+
+            <form class="form" id="signupForm">
+                <div class="input-group">
+                    <label for="fullname">Full Name</label>
+                    <div class="input-field-wrapper">
+                        <i class="fa-regular fa-user input-icon-left"></i>
+                        <input type="text" id="fullname" placeholder="Enter your full name" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-field-wrapper">
+                        <i class="fa-regular fa-envelope input-icon-left"></i>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <div class="input-field-wrapper">
+                        <i class="fa-solid fa-lock input-icon-left"></i>
+                        <input type="password" id="password" placeholder="Create a password" required>
+                        <i class="fa-regular fa-eye-slash input-icon-right" id="togglePassword"></i>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    Create Account <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+
+            <button type="button" class="btn-google" id="googleSignupBtn">
+                <i class="fa-brands fa-google"></i> Sign up with Google
+            </button>
+
+            <div class="lower-section">
+                <p>Already have an account? <a href="login.html">Log in</a></p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Custom Google Account Selector Modal -->
+    <div id="googleModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Sign in with Google</h3>
+                <p>Choose an account to continue to NEXORA</p>
+            </div>
+            <div class="account-list" id="accountListContainer">
+                <!-- Dynamically populated accounts -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="closeModalBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../JS/signup.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NEXORA | Tasks</title>
+
+    <!-- Main & Page Styles -->
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/tasks.css">
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <!-- =================================
+             SIDEBAR
+        ================================== -->
+        <aside class="sidebar">
+
+            <!-- Brand -->
+            <div class="sidebar-brand">
+                <a href="index.html" class="brand-logo">
+                    <svg class="logo-mark" width="28" height="28" viewBox="0 0 32 32" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="nexoraGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#9B82FF" />
+                                <stop offset="100%" stop-color="#7C5CFC" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="4" y="5" width="6" height="22" rx="3" fill="url(#nexoraGrad)" />
+                        <path d="M10 8L22 24" stroke="url(#nexoraGrad)" stroke-width="6" stroke-linecap="round" />
+                        <rect x="22" y="5" width="6" height="22" rx="3" fill="url(#nexoraGrad)" />
+                    </svg>
+                    <span class="brand-title">NEXORA</span>
+                </a>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="sidebar-link">
+                    <i class="fa-solid fa-table-cells-large nav-icon"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="projects.html" class="sidebar-link">
+                    <i class="fa-regular fa-folder nav-icon"></i>
+                    <span>Projects</span>
+                </a>
+
+                <a href="tasks.html" class="sidebar-link active">
+                    <i class="fa-solid fa-list-check nav-icon"></i>
+                    <span>Tasks</span>
+                </a>
+
+                <a href="calendar.html" class="sidebar-link">
+                    <i class="fa-regular fa-calendar nav-icon"></i>
+                    <span>Calendar</span>
+                </a>
+
+                <a href="analytics.html" class="sidebar-link">
+                    <i class="fa-solid fa-chart-column nav-icon"></i>
+                    <span>Analytics</span>
+                </a>
+
+                <a href="settings.html" class="sidebar-link">
+                    <i class="fa-solid fa-gear nav-icon"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+        </aside>
+
+        <!-- =================================
+             MAIN CONTENT WRAPPER
+        ================================== -->
+        <div class="main-wrapper">
+
+            <!-- HEADER -->
+            <header class="top-header">
+
+                <div>
+                    <span class="page-label">Workspace</span>
+                    <h1>Tasks</h1>
+                </div>
+
+                <div class="header-right">
+
+                    <button
+                        class="notification"
+                        type="button"
+                    >
+
+                        <i class="fa-solid fa-bell"></i>
+
+                    </button>
+
+
+                    <div class="user-profile">
+
+                        <div class="user-avatar">
+                            AR
+                        </div>
+
+
+                        <div class="user-info">
+
+                            <strong>
+                                Alex Reed
+                            </strong>
+
+                            <span>
+                                Workspace Admin
+                            </span>
+
+                        </div>
+
+
+                        <i
+                            class="fa-solid fa-chevron-down profile-arrow"
+                        ></i>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- MAIN CONTENT AREA -->
+            <main class="content-area">
+
+                <!-- Welcome Card -->
+                <section class="task-card">
+                    <div>
+                        <span class="section-label">
+                            <i class="fa-solid fa-list-check"></i>
+                            Tasks
+                        </span>
+                        <h2>Get things done.</h2>
+                        <p>Manage your tasks, stay focused and track your progress.</p>
+                    </div>
+
+                    <button class="btn btn-primary" id="newTaskBtn" type="button">
+                        <i class="fa-solid fa-plus"></i>
+                        New Task
+                    </button>
+                </section>
+
+                <!-- TOOLBAR (FILTERS & SEARCH) -->
+                <section class="task-toolbar">
+
+                    <div class="task-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="active">Active</button>
+                        <button class="filter-btn" data-filter="completed">Completed</button>
+                        <button class="filter-btn" data-filter="overdue">Overdue</button>
+                    </div>
+
+                    <div class="task-search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="taskSearch" placeholder="Search tasks or project folders...">
+                    </div>
+
+                </section>
+
+                <!-- STATISTICS CARDS -->
+                <section class="task-stats">
+
+                    <!-- Total -->
+                    <div class="task-stat-card">
+                        <div class="stat-icon purple">
+                            <i class="fa-solid fa-list"></i>
+                        </div>
+                        <span>Total Tasks</span>
+                        <strong id="totalTasks">0</strong>
+                        <small>All tasks</small>
+                    </div>
+
+                    <!-- Completed -->
+                    <div class="task-stat-card">
+                        <div class="stat-icon green">
+                            <i class="fa-regular fa-circle-check"></i>
+                        </div>
+                        <span>Completed</span>
+                        <strong id="completedTasks">0%</strong>
+                        <small id="completedTaskCount">0 tasks</small>
+                    </div>
+
+                    <!-- Active / In Progress -->
+                    <div class="task-stat-card">
+                        <div class="stat-icon yellow">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+                        <span>In Progress</span>
+                        <strong id="activeTasks">0</strong>
+                        <small>Active tasks</small>
+                    </div>
+
+                    <!-- Overdue -->
+                    <div class="task-stat-card">
+                        <div class="stat-icon red">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                        </div>
+                        <span>Overdue</span>
+                        <strong id="overdueTasks">0</strong>
+                        <small>Need attention</small>
+                    </div>
+
+                </section>
+
+                <!-- TASK LIST CONTAINER -->
+                <section class="task-list-card">
+
+                    <div class="task-list-header">
+                        <h3>Task List</h3>
+
+                        <div class="sort-wrapper">
+                            <label for="sortTasks">Sort by:</label>
+                            <select id="sortTasks">
+                                <option value="due">Due Date</option>
+                                <option value="priority">Priority</option>
+                                <option value="name">Name</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="tasks-container" id="tasksContainer">
+                        <!-- Dynamically populated by js/tasks.js -->
+                    </div>
+
+                </section>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- =================================
+         NEW / EDIT TASK MODAL
+    ================================== -->
+    <div class="task-modal" id="taskModal">
+
+        <div class="task-modal-content">
+
+            <!-- Modal Header -->
+            <div class="task-modal-header">
+                <div>
+                    <span class="modal-label">TASK MANAGER</span>
+                    <h2>Create Task</h2>
+                </div>
+
+                <button type="button" class="modal-close" id="closeTaskModal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Task Form -->
+            <form id="taskForm">
+
+                <!-- Task Title -->
+                <div class="form-group">
+                    <label for="taskTitle">Task Title</label>
+                    <input type="text" id="taskTitle" placeholder="Enter task title" required>
+                </div>
+
+                <!-- Project Folder Selection -->
+                <div class="form-group">
+                    <label for="taskProjectSelect">Project Folder</label>
+                    <div class="select-wrapper">
+                        <select id="taskProjectSelect" onchange="toggleCustomProjectInput(this)">
+                            <!-- Options populated dynamically by tasks.js -->
+                            <option value="General">General</option>
+                            <option value="__NEW__">+ Create New Project Folder...</option>
+                        </select>
+                    </div>
+                    <input type="text" id="taskProjectCustom" placeholder="Enter new project folder name" style="display: none; margin-top: 8px;">
+                </div>
+
+                <!-- Date & Priority Row -->
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="taskDueDate">Due Date</label>
+                        <input type="date" id="taskDueDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskPriority">Priority</label>
+                        <select id="taskPriority">
+                            <option value="high">High</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <!-- Modal Actions -->
+                <div class="task-modal-actions">
+                    <button type="button" class="btn-secondary" id="cancelTask">Cancel</button>
+                    <button type="submit" class="btn-primary">
+                        <i class="fa-solid fa-plus"></i>
+                        Save Task
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- JavaScript Files -->
+    <script src="../JS/app.js"></script>
+    <script src="../JS/tasks.js"></script>
+    <script src="../JS/login.js"></script>
+
+</body>
+
+</html>
