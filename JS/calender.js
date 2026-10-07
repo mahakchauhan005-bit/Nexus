@@ -825,3 +825,12 @@ window.generateNotificationsFromData = function() {
     updateNotifications();
     console.log("Notifications regenerated successfully!");
 };
+
+/* =================================
+   AUTO-INITIALIZE ON PAGE LOAD
+================================= */
+document.addEventListener("DOMContentLoaded", function () {
+    renderCalendar();
+    renderUpcomingEvents();
+    updateNotifications();
+});
