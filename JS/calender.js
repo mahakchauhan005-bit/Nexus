@@ -690,8 +690,7 @@ function addNotification(type, title, message, date = "", time = "") {
         date: date,
         time: time,
         createdAt: Date.now(),
-        read: false,
-        completed: false
+        read: false
     };
 
     notifications.unshift(notification);
@@ -703,7 +702,7 @@ function createTaskNotifications() {
     const todayStr = getTodayKey();
 
     tasks.forEach((task) => {
-        if (!task.dueDate || task.status === "completed" || task.completed) return;
+        if (!task.dueDate || task.status === "completed") return;
 
         let notificationType = "";
         let notificationTitle = "";
@@ -718,22 +717,21 @@ function createTaskNotifications() {
             return;
         }
 
-        const notificationKey = `${notificationType}-task-${task.id || task.title}-${task.dueDate}`;
+        const notificationKey = `${notificationType}-task-${task.id}-${task.dueDate}`;
         const notifications = getNotifications();
 
         if (notifications.some((n) => n.key === notificationKey)) return;
 
         notifications.unshift({
-            id: `task-${task.id || task.title}`,
+            id: Date.now() + Math.random(),
             key: notificationKey,
             type: notificationType,
             title: notificationTitle,
-            message: task.title || "Untitled Task",
+            message: task.title,
             date: task.dueDate,
             time: "",
             createdAt: Date.now(),
-            read: false,
-            completed: false
+            read: false
         });
 
         saveNotifications(notifications.slice(0, 50));
@@ -751,7 +749,7 @@ function createEventNotifications() {
         if (notifications.some((n) => n.key === notificationKey)) return;
 
         notifications.unshift({
-            id: `event-${event.id}`,
+            id: Date.now() + Math.random(),
             key: notificationKey,
             type: "event",
             title: "Event today",
@@ -759,8 +757,7 @@ function createEventNotifications() {
             date: event.date,
             time: event.time,
             createdAt: Date.now(),
-            read: false,
-            completed: false
+            read: false
         });
 
         saveNotifications(notifications.slice(0, 50));
@@ -777,60 +774,291 @@ function renderNotificationBadge() {
     const notificationButton = document.querySelector(".notification");
     if (!notificationButton) return;
 
-    const notifications = getNotifications();
+    const saved = localStorage.getItem("nexoraNotifications");
+    const notifications = saved ? JSON.parse(saved) : [];
 
-    // Calculate active unread notifications
-    const activeCount = notifications.filter((n) => n.completed !== true && n.read !== true).length;
-    
+    // Count active/unread notifications
+    const activeCount = notifications.filter(
+        (n) => n.completed !== true && n.read !== true
+    ).length;
+
     let badge = notificationButton.querySelector(".notification-badge");
 
-    if (activeCount > 0) {
-        if (!badge) {
-            badge = document.createElement("span");
-            badge.className = "notification-badge";
-            notificationButton.appendChild(badge);
-        }
+    // 0 notifications = no badge
+    if (activeCount === 0) {
+        if (badge) badge.remove();
+        return;
+    }
 
-        notificationButton.style.position = "relative";
-        notificationButton.style.overflow = "visible";
+    // Create badge if needed
+    if (!badge) {
+        badge = document.createElement("span");
+        badge.className = "notification-badge";
+        notificationButton.appendChild(badge);
+    }
 
-        badge.style.cssText = `
-            position: absolute !important;
-            top: -2px !important;
-            right: -2px !important;
-            min-width: 18px !important;
-            height: 18px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            background-color: #FF4D4D !important;
-            color: #ffffff !important;
-            font-size: 0.65rem !important;
-            font-weight: 700 !important;
-            padding: 0 4px !important;
-            border-radius: 50% !important;
-            z-index: 99999 !important;
-            pointer-events: none !important;
+    notificationButton.style.position = "relative";
+    notificationButton.style.overflow = "visible";
+
+    badge.style.cssText = `
+        position: absolute !important;
+        top: -2px !important;
+        right: -2px !important;
+        min-width: 18px !important;
+        height: 18px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background-color: #FF4D4D !important;
+        color: #ffffff !important;
+        font-size: 0.65rem !important;
+        font-weight: 700 !important;
+        padding: 0 4px !important;
+        border-radius: 50% !important;
+        z-index: 99999 !important;
+        pointer-events: none !important;
+    `;
+
+    // 1 notification = 1
+    // More than 1 = 1+
+    badge.textContent = activeCount === 1 ? "1" : "1+";
+}
+
+// Auto-run on load & events
+document.addEventListener("DOMContentLoaded", renderNotificationBadge);
+window.addEventListener("storage", (e) => {
+    if (e.key === "nexoraNotifications") renderNotificationBadge();
+});
+window.addEventListener("nexoraNotificationsUpdated", renderNotificationBadge);
+
+function showNotifications() {
+    let dropdown = document.getElementById("calendarNotificationDropdown");
+
+    if (dropdown) {
+        dropdown.remove();
+        return;
+    }
+
+    const notifications = getNotifications();
+    dropdown = document.createElement("div");
+    dropdown.id = "calendarNotificationDropdown";
+    dropdown.style.cssText = `
+        position: absolute; top: 60px; right: 20px; width: 360px;
+        max-width: calc(100vw - 40px); max-height: 500px; overflow: hidden;
+        background: var(--surface, #181D24); border: 1px solid var(--border, #2A323D);
+        border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); z-index: 1000;
+        color: var(--text, #F8FAFC);
+    `;
+
+    let html = `
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid var(--border, #2A323D);">
+            <div>
+                <strong style="display: block; font-size: 1rem;">Notifications</strong>
+                <small style="color: var(--text-muted, #8B93A1);">Previous & incoming</small>
+            </div>
+            <button type="button" id="clearNotificationsBtn" style="border: none; background: transparent; color: var(--text-muted, #8B93A1); cursor: pointer; font-size: 0.75rem;">Clear all</button>
+        </div>
+    `;
+
+    if (notifications.length === 0) {
+        html += `
+            <div style="padding: 30px 20px; text-align: center; color: var(--text-muted, #8B93A1);">
+                <i class="fa-regular fa-bell-slash" style="font-size: 1.5rem; margin-bottom: 10px;"></i>
+                <p>No notifications yet.</p>
+            </div>
         `;
+    } else {
+        html += `<div style="max-height: 420px; overflow-y: auto;">`;
+        notifications.forEach((notification) => {
+            let icon = "fa-bell";
+            let iconColor = "#9B82FF";
 
-        // Shows exact count if 1, or "1+" if more than 1
-        badge.textContent = activeCount === 1 ? "1" : "1+";
-    } else if (badge) {
-        badge.remove();
+            if (notification.type === "overdue") { icon = "fa-triangle-exclamation"; iconColor = "#FF5C6C"; }
+            else if (notification.type === "due") { icon = "fa-clock"; iconColor = "#F5B942"; }
+            else if (notification.type === "event") { icon = "fa-calendar-days"; iconColor = "#7C5CFC"; }
+            else if (notification.type === "task") { icon = "fa-list-check"; iconColor = "#35D07F"; }
+
+            const timeText = getTimeAgo(notification.createdAt);
+
+            html += `
+                <div style="display: flex; gap: 12px; padding: 13px 16px; border-bottom: 1px solid var(--border, #252B34); background: ${notification.read ? "transparent" : "rgba(124,92,252,0.07)"};">
+                    <div style="width: 34px; height: 34px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: ${iconColor}20; color: ${iconColor};">
+                        <i class="fa-solid ${icon}"></i>
+                    </div>
+                    <div style="min-width: 0; flex: 1;">
+                        <strong style="display: block; font-size: 0.84rem; margin-bottom: 4px;">${notification.title}</strong>
+                        <div style="font-size: 0.8rem; color: var(--text-muted, #8B93A1); word-break: break-word;">${notification.message}</div>
+                        <small style="display: block; margin-top: 5px; color: var(--text-muted, #8B93A1); font-size: 0.7rem;">
+                            ${notification.date || ""}
+                            ${notification.time ? " • " + formatEventTime(notification.time) : ""}
+                            ${timeText ? " • " + timeText : ""}
+                        </small>
+                    </div>
+                </div>
+            `;
+        });
+        html += `</div>`;
+    }
+
+    dropdown.innerHTML = html;
+    document.body.appendChild(dropdown);
+
+   //const updatedNotifications = notifications.map((n) => ({ ...n, read: true }));
+//saveNotifications(updatedNotifications);
+    renderNotificationBadge();
+
+    const clearButton = document.getElementById("clearNotificationsBtn");
+    if (clearButton) {
+        clearButton.addEventListener("click", function (event) {
+            event.stopPropagation();
+            localStorage.removeItem(NOTIFICATIONS_STORAGE_KEY);
+            dropdown.remove();
+            renderNotificationBadge();
+            notifyModules();
+        });
+    }
+
+    setTimeout(() => {
+        document.addEventListener("click", function closeDropdown(event) {
+            if (!dropdown.contains(event.target) && !event.target.closest(".notification")) {
+                dropdown.remove();
+                document.removeEventListener("click", closeDropdown);
+            }
+        });
+    }, 100);
+}
+
+function getTimeAgo(timestamp) {
+    const difference = Date.now() - timestamp;
+    const seconds = Math.floor(difference / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (seconds < 60) return "just now";
+    if (minutes < 60) return `${minutes} ${minutes === 1 ? "minute ago" : "minutes ago"}`;
+    if (hours < 24) return `${hours} ${hours === 1 ? "hour ago" : "hours ago"}`;
+    return `${days} ${days === 1 ? "day ago" : "days ago"}`;
+}
+
+if (notificationButton) {
+    notificationButton.addEventListener("click", function (event) {
+        event.stopPropagation();
+        showNotifications();
+    });
+}
+
+/* =================================
+   DATA IMPORT / EXPORT BACKUP
+================================= */
+function exportCalendarData() {
+    const data = {
+        events: events,
+        tasks: getStoredTasks(),
+        notifications: getNotifications()
+    };
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+    const downloadAnchor = document.createElement("a");
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `nexora_backup_${getTodayKey()}.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+}
+
+function importCalendarData(jsonData) {
+    try {
+        const parsed = JSON.parse(jsonData);
+        if (parsed.events) {
+            events = parsed.events;
+            saveEvents();
+        }
+        if (parsed.tasks) {
+            saveTasks(parsed.tasks);
+        }
+        if (parsed.notifications) {
+            saveNotifications(parsed.notifications);
+        }
+        renderCalendar();
+        renderUpcomingEvents();
+        updateNotifications();
+    } catch (e) {
+        console.error("Invalid JSON format for import", e);
     }
 }
 
-// Global generator override supporting multi-item persistence and prevention of duplicates
-window.generateNotificationsFromData = function() {
-    updateNotifications();
-    console.log("Notifications regenerated successfully!");
-};
-
 /* =================================
-   AUTO-INITIALIZE ON PAGE LOAD
+   EVENT LISTENERS FOR SYNCING
 ================================= */
-document.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("storage", (event) => {
+    if ([EVENTS_STORAGE_KEY, TASKS_STORAGE_KEY, NOTIFICATIONS_STORAGE_KEY].includes(event.key)) {
+        if (event.key === EVENTS_STORAGE_KEY) {
+            events = JSON.parse(event.newValue) || [];
+        }
+        renderCalendar();
+        renderUpcomingEvents();
+        renderNotificationBadge();
+    }
+});
+
+window.addEventListener("nexoraNotificationsUpdated", () => {
     renderCalendar();
     renderUpcomingEvents();
-    updateNotifications();
+    renderNotificationBadge();
 });
+
+/* =================================
+   INITIAL STARTUP & TIMER
+================================= */
+document.addEventListener("DOMContentLoaded", () => {
+    updateNotifications();
+    renderCalendar();
+    renderUpcomingEvents();
+
+    setInterval(() => {
+        updateNotifications();
+    }, 60000);
+});
+
+
+window.generateNotificationsFromData = function() {
+    const tasksRaw = localStorage.getItem("nexoraTasks") || localStorage.getItem("nexora_tasks");
+    const tasks = tasksRaw ? JSON.parse(tasksRaw) : [];
+    const todayStr = new Date().toISOString().split("T")[0];
+    const newNotifications = [];
+
+    tasks.forEach(task => {
+        if (task.status === "completed" || task.completed) return;
+
+        if (task.dueDate && task.dueDate < todayStr) {
+            newNotifications.push({
+                id: `task-${task.id || task.title}`,
+                type: "overdue",
+                title: "Task overdue",
+                message: task.title || "Untitled Task",
+                date: task.dueDate,
+                read: false,
+                completed: false,
+                createdAt: new Date().toISOString()
+            });
+        } else if (task.dueDate && task.dueDate === todayStr) {
+            newNotifications.push({
+                id: `task-${task.id || task.title}`,
+                type: "due",
+                title: "Task due today",
+                message: task.title || "Untitled Task",
+                date: task.dueDate,
+                read: false,
+                completed: false,
+                createdAt: new Date().toISOString()
+            });
+        }
+    });
+
+    localStorage.setItem("nexoraNotifications", JSON.stringify(newNotifications));
+    if (typeof renderNotificationBadge === "function") {
+        renderNotificationBadge();
+    }
+    console.log("Notifications regenerated successfully!", newNotifications);
+};
+
