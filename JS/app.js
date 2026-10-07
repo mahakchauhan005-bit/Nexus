@@ -3,16 +3,15 @@
 ================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
-
-    // Get saved user name
-    const userName = localStorage.getItem("nexusUserName");
+    // Standardized to 'nexora_user_name' to match settings and login/signup flow
+    const userName = localStorage.getItem("nexora_user_name");
 
     console.log("NEXUS loaded");
 
     if (userName) {
         console.log("Welcome back, " + userName);
+        updateUIProfile(userName);
     }
-
 });
 
 // ==========================================
@@ -91,12 +90,19 @@ function getInitials(name) {
     return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
 
-// Update Profile Initials & Header Name
+// Update Profile Initials & Header Name Everywhere Across Pages
 function updateUIProfile(name) {
+    if (!name) return;
+
+    // Target multiple name display locations across elements (.user-display-name, user info strong headings, etc.)
+    const userHeaderNames = document.querySelectorAll('.user-info strong, .user-display-name');
+    userHeaderNames.forEach(el => {
+        el.textContent = name;
+    });
+
     const avatarElement = document.querySelector('.large-avatar');
     const avatarInitials = document.getElementById('avatarInitials');
     const headerAvatar = document.getElementById('headerAvatar');
-    const userHeaderName = document.querySelector('.user-info strong');
 
     const initials = getInitials(name);
     if (initials) {
@@ -105,9 +111,6 @@ function updateUIProfile(name) {
         if (headerAvatar && !headerAvatar.style.backgroundImage) {
             headerAvatar.textContent = initials;
         }
-    }
-    if (userHeaderName && name.trim()) {
-        userHeaderName.textContent = name;
     }
 }
 
@@ -162,10 +165,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (profileForm) {
         profileForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const fullName = fullNameInput ? fullNameInput.value : '';
-            updateUIProfile(fullName);
-            localStorage.setItem('nexora_user_name', fullName);
-            showToast("Profile settings saved successfully!");
+            const fullName = fullNameInput ? fullNameInput.value.trim() : '';
+            if (fullName) {
+                updateUIProfile(fullName);
+                localStorage.setItem('nexora_user_name', fullName);
+                showToast("Profile settings saved successfully!");
+            }
         });
     }
 
