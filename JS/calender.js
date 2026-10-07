@@ -1019,6 +1019,13 @@ window.generateNotificationsFromData = function() {
     const tasksRaw = localStorage.getItem("nexoraTasks") || localStorage.getItem("nexora_tasks");
     const tasks = tasksRaw ? JSON.parse(tasksRaw) : [];
     const todayStr = new Date().toISOString().split("T")[0];
+    
+    // Fetch existing notifications so we don't wipe them out
+    const existingRaw = localStorage.getItem("nexoraNotifications");
+    const existingNotifications = existingRaw ? JSON.parse(existingRaw) : [];
+
+    // Keep non-task notifications (or custom alerts) so they aren't lost
+    const nonTaskNotifications = existingNotifications.filter(n => !n.id || !n.id.startsWith("task-"));
     const newNotifications = [];
 
     tasks.forEach(task => {
@@ -1049,10 +1056,13 @@ window.generateNotificationsFromData = function() {
         }
     });
 
-    localStorage.setItem("nexoraNotifications", JSON.stringify(newNotifications));
+    // Combine non-task notifications with the newly generated task notifications
+    const combinedNotifications = [...newNotifications, ...nonTaskNotifications];
+
+    localStorage.setItem("nexoraNotifications", JSON.stringify(combinedNotifications));
+    
     if (typeof renderNotificationBadge === "function") {
         renderNotificationBadge();
     }
-    console.log("Notifications regenerated successfully!", newNotifications);
+    console.log("Notifications regenerated successfully!", combinedNotifications);
 };
-
