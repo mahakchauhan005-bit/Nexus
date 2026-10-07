@@ -558,8 +558,11 @@ function initCalendarNotifications() {
         if (alertCount === 0) {
             badge.textContent = "0";
             badge.style.background = "#4B5563";
+        } else if (alertCount === 1) {
+            badge.textContent = "1";
+            badge.style.background = "#FF4D4D";
         } else {
-            badge.textContent = alertCount; // Displays the true number (2, 3, etc.) dynamically
+            badge.textContent = "1+";
             badge.style.background = "#FF4D4D";
         }
 
