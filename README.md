@@ -102,7 +102,7 @@ Nexora/
 │   ├── dashboard.js
 │   ├── tasks.js
 │   ├── projects.js
-│   ├──style.js
+│   ├──app.js
 │   ├── analytics.js
 │   ├── calendar.js
 │   ├── settings.js
