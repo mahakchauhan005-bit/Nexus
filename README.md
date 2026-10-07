@@ -75,7 +75,8 @@ It provides a centralized workspace for managing tasks and projects, viewing ana
 ```text
 Nexora/
 │
-├── html/
+├──index.html
+├── HTML/
 │   ├── dashboard.html
 │   ├── tasks.html
 │   ├── projects.html
@@ -86,22 +87,22 @@ Nexora/
 │   ├── login.html
 │   └── signup.html
 │
-├── css/
+├── CSS/
 │   ├── dashboard.css
 │   ├── tasks.css
 │   ├── projects.css
-│   ├── projectsall.css
+│   ├── style.css
 │   ├── analytics.css
 │   ├── calendar.css
 │   ├── settings.css
 │   ├── login.css
 │   └── signup.css
 │
-├── js/
+├── JS/
 │   ├── dashboard.js
 │   ├── tasks.js
 │   ├── projects.js
-│   ├── projectsall.js
+│   ├──style.js
 │   ├── analytics.js
 │   ├── calendar.js
 │   ├── settings.js
